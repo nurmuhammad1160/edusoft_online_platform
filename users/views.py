@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import UserRegisterForm
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserChangeForm
+from django.contrib.auth.decorators import login_required
+from django.views import View
+
 
 
 def home_page(request):
@@ -39,3 +42,23 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+
+
+@login_required
+def profile_view(request):
+    return render(request, 'profile/profile.html', {'user': request.user})
+
+
+
+class EditProfileView(View):
+    def get(self, request):
+        form = UserChangeForm(instance=request.user)
+        return render(request, 'profile/edit_profile.html', {'form': form})
+
+    def post(self, request):
+        form = UserChangeForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        return render(request, 'profile/edit_profile.html', {'form': form})

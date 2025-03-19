@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+
+<body>
+    <h2>Foydalanuvchi Profil</h2>
+    <img src="{{ user.avatar.url }}" alt="Profil rasmi" width="150px">
+    <p><strong>Ism:</strong> {{ user.username }}</p>
+    <p><strong>Roli:</strong> {{ user.get_role_display }}</p>
+    <p><strong>Telefon raqam:</strong> {{ user.phone_number }}</p>
+    <p><strong>Bio:</strong> {{ user.bio }}</p>
+
+    <a href="{% url 'edit_profile' %}">Profilni tahrirlash</a>
+</body>
+
+</html>
