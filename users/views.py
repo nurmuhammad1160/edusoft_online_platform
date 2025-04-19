@@ -20,7 +20,7 @@ def user_register(request):
             return redirect('home')  # Asosiy sahifaga yuborish
     else:
         form = UserRegisterForm()
-    return render(request, 'register/register.html', {'form': form})
+    return render(request, 'register/signup.html', {'form': form})
 
 
 
@@ -34,7 +34,7 @@ def user_login(request):
             return redirect('home')
     else:
         form = AuthenticationForm()
-    return render(request, 'register/login.html', {'form': form})
+    return render(request, 'register/index.html', {'form': form})
 
 
 
